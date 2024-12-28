@@ -1,0 +1,58 @@
+<form [formGroup]="RoleForm" (ngSubmit)="SaveRoles()">
+    <mat-card>
+        <mat-card-header>
+            <h1>User Role Assignment</h1>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field>
+            <mat-label>Select user Role</mat-label>
+            <mat-select formControlName="UserRole" (selectionChange)="RoleChange($event)" >
+                @for(item of RoleList;track item){
+                    <mat-option value="{{item.roleId}}">{{item.roleName}}</mat-option>
+                }
+            </mat-select>
+          </mat-form-field>
+    
+          <mat-card>
+            <mat-card-content>
+    
+                <table style="width: 100%;" formArrayName="Access">
+                    <thead>
+                        <tr>
+                            <th>Menu name</th>
+                            <th>Have view</th>
+                            <th>Have Add</th>
+                            <th>Have Edit</th>
+                            <th>Have Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of getrows.controls;let i=index" [formGroupName]="i">
+                            <td>{{item.value.menuCode}}</td>
+                            <td>
+                                <mat-checkbox formControlName="HaveView"></mat-checkbox>
+                            </td>
+                            <td>
+                                <mat-checkbox formControlName="HaveAdd"></mat-checkbox>
+                            </td>
+                            <td>
+                                <mat-checkbox formControlName="HaveEdit"></mat-checkbox>
+                            </td>
+                            <td>
+                                <mat-checkbox formControlName="HaveDelete"></mat-checkbox>
+                            </td>
+    
+                        </tr>
+                    </tbody>
+    
+                </table>
+    
+            </mat-card-content>
+          </mat-card>
+    
+        </mat-card-content>
+        <mat-card-actions>
+            <button type="submit" mat-raised-button color="primary">Save</button>
+        </mat-card-actions>
+    </mat-card>
+    </form>

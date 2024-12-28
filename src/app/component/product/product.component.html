@@ -1,0 +1,69 @@
+<mat-card>
+    <mat-card-header>
+        <h1>Product List</h1>
+        @if(_permission.haveAdd===true){
+            <button style="margin-left: 70%;" mat-raised-button color="primary" routerLink="/Product/add">Add Product</button>
+        }
+        
+    </mat-card-header>
+    <mat-card-content>
+        <table mat-table [dataSource]="datasource"matSort
+        (matSortChange)="announceSortChange($event)">
+            <!-- <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Id</th>
+                  <td mat-cell *matCellDef="let element">{{element.id}}</td>
+            </ng-container> -->
+
+            <ng-container matColumnDef="imageId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>ImageId</th>
+                <td mat-cell *matCellDef="let element">{{element.imageId}}</td>
+          </ng-container>   
+
+          <ng-container matColumnDef="productname">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Name</th>
+            <td mat-cell *matCellDef="let element">{{element.productname}}</td>
+      </ng-container>
+         
+      <ng-container matColumnDef="sellingprice">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Selling Price</th>
+        <td mat-cell *matCellDef="let element">{{element.sellingprice}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="costprice" >
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cost Price</th>
+    <td mat-cell *matCellDef="let element">{{element.costprice}}</td>
+</ng-container>
+
+<ng-container matColumnDef="unit" >
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Unit</th>
+    <td mat-cell *matCellDef="let element">{{element.unit}}</td>
+</ng-container>
+
+<ng-container matColumnDef="avaiablequatity" >
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Avaiable Quatity</th>
+    <td mat-cell *matCellDef="let element">{{element.avaiablequatity}}</td>
+</ng-container>
+<ng-container matColumnDef="note" >
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Note</th>
+    <td mat-cell *matCellDef="let element">{{element.note}}</td>
+</ng-container>
+<ng-container matColumnDef="Action">
+    <th mat-header-cell *matHeaderCellDef>Action</th>
+    <td mat-cell *matCellDef="let element">
+        <button (click)="EditProduct(element.id)" mat-raised-button color="primary">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button (click)="DeleteProduct(element.id)" mat-raised-button color="accent">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </td>
+</ng-container>
+            <tr class="table-header" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+        </table>
+    </mat-card-content>
+    <br>
+    <mat-card-footer>
+        <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+    </mat-card-footer>
+</mat-card>

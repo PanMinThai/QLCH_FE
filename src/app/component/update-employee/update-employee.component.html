@@ -1,0 +1,47 @@
+<form [formGroup]="employeeform" (ngSubmit)="ProceedChange()">
+
+    <mat-card>
+        <mat-card-header>
+          <h1>Update Employee</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field >
+                <mat-label>UserName</mat-label>
+                <input formControlName="username"  matInput />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input formControlName="name"  matInput />
+            </mat-form-field>
+            <mat-form-field >
+                    <mat-label>Branch</mat-label>
+                    <mat-select formControlName="branchId">
+                        @for(item of branchlist;track item){
+                            <mat-option value="{{item.id}}">{{item.branchName}}</mat-option>
+                        }
+                    </mat-select>
+            </mat-form-field>
+            <mat-label>Gender</mat-label>
+            <mat-radio-group formControlName="gender">
+                <mat-radio-button value="true">Male</mat-radio-button>
+                <mat-radio-button value="false">Female</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field>
+                <mat-label > Position </mat-label>
+                <input formControlName="position" matInput />
+            </mat-form-field>
+           
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="div-50">
+                <button type="submit" mat-raised-button color="primary">Update</button>
+            </div>
+            <div class="div-50">
+                <a (click)="ClosePopUp()" mat-raised-button color="accent">Cancel</a>
+            </div>
+            
+
+        </mat-card-actions>
+    </mat-card>
+
+</form>

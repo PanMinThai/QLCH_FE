@@ -1,0 +1,56 @@
+<form [formGroup]="mform" (ngSubmit)="SaveMembershipCard()">
+
+    <mat-card>
+        <mat-card-header>
+          <h1>{{title}}</h1>
+        </mat-card-header>
+        <mat-card-content>
+
+            <mat-form-field >
+                <mat-label>Customer Name</mat-label>
+                <input formControlName="customerName"  matInput />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Phone</mat-label>    
+                <input formControlName="phone"  matInput />
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>Card Type</mat-label>
+                <mat-select formControlName="cardTypeId">
+                    @for(item of cardtypelist;track item){
+                        <mat-option value="{{item.id}}">{{item.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <!-- <mat-form-field class="mat-50">
+                <mat-label>Accumulated Points</mat-label>
+                <input formControlName="accumulatedPoints" matInput />
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label > Used Points </mat-label>
+                <input formControlName="usedPoints" matInput />
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label >Accumulated Amount</mat-label>
+                <input formControlName="accumulatedAmount" matInput />
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>Used Amount</mat-label>
+                <input formControlName="usedAmount"  matInput />
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>Used Amount</mat-label>
+                <input formControlName="usedAmount"  matInput />
+            </mat-form-field> -->
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="div-50">
+                <button type="submit" mat-raised-button color="primary">Save</button>
+            </div>
+            <div class="div-50">
+                <a routerLink="/MembershipCard" mat-raised-button color="accent">Cancel</a>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+
+</form>
