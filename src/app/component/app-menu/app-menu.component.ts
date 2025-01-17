@@ -103,8 +103,16 @@ export class AppMenuComponent implements OnInit, DoCheck {
     switch (menuCode) {
       case 'Invoice': return 'assignment';
       case 'PurchaseInvoice': return 'shopping_cart';
-      case 'ExpenseInvoice': return 'receipt';
-      // Add more cases as needed
+      case 'ExpenseInvoice': return 'receipt_long';
+      case 'Branch':return 'store';
+      case 'Supplier':return 'local_shipping';
+      case 'User':return 'group';
+      case 'UserRole':return 'security';
+      case 'Employee':return 'assignment_ind';
+      case 'MembershipCard':return 'card_membership';
+      case 'CardType':return 'style';
+      case 'Product':return 'redeem';
+      case 'Image':return 'image';
       default: return 'description';
     }
   }
