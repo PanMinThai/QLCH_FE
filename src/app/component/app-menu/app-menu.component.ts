@@ -1,10 +1,11 @@
-import { Component, DoCheck, effect, OnInit } from '@angular/core';
+import { Component, DoCheck, effect, OnInit, QueryList, signal, ViewChildren } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { Menu } from '../../models/user.model';
 import { MaterialModule } from '../../material.module';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 
 @Component({
@@ -16,6 +17,10 @@ import { CommonModule } from '@angular/common';
 })
 export class AppMenuComponent implements OnInit, DoCheck {
   logout = faRightFromBracket;
+  @ViewChildren(MatExpansionPanel) panels!: QueryList<MatExpansionPanel>;
+  closeAllPanels(): void {
+    this.panels.forEach((panel) => panel.close());
+  }
   constructor(private service: UserService, private router: Router) {
     effect(() => {
       this.MenuList = this.service._menulist();
@@ -47,7 +52,7 @@ export class AppMenuComponent implements OnInit, DoCheck {
     this.LoginUser = localStorage.getItem('userName') as string;
     this.SetAccess();
   }
-
+  
   SetAccess() {
     let userRole = localStorage.getItem('userRole');
     let currentUrl = this.router.url;

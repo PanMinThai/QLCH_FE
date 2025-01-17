@@ -1,13 +1,15 @@
 @if(showmenu){
     <div>
         <mat-toolbar color="primary" class="mat-elevation-z8">
-            <button mat-icon-button (click)="drawer.toggle()">
+            <button mat-icon-button (click)="drawer.toggle()" (click)="closeAllPanels()">
                 <mat-icon>menu</mat-icon>
             </button>
-            <span>Store Management system</span>
+            <span>Store Management System</span>
             <span class="example-spacer"></span>
             <span>{{LoginUser}}</span>
-            <button mat-button [matMenuTriggerFor]="profile"><mat-icon>arrow_drop_down</mat-icon></button>
+            <button mat-button [matMenuTriggerFor]="profile">
+                <mat-icon>arrow_drop_down</mat-icon>
+            </button>
             <mat-menu #profile>
                 <button mat-menu-item>Userprofile
                     <mat-icon>account_circle</mat-icon>
@@ -17,61 +19,54 @@
                 </button>
                 <button mat-menu-item routerLink="/login">
                     <mat-icon>logout</mat-icon>Logout
-    
-                    <!-- <fa-icon [icon]="logout"></fa-icon>     Logout -->
                 </button>
             </mat-menu>
-    
         </mat-toolbar>
+
         <mat-drawer-container autosize>
             <mat-drawer #drawer opened="true" mode="side" position="start">
-                <!-- <pre>{{ groupedMenuList | json }}</pre> -->
-    
                 <mat-nav-list>
                     <mat-list-item>
-                        <button mat-button routerLink="Product"><mat-icon>home</mat-icon>Home</button>
+                        <button mat-button routerLink="Product" (click)="closeAllPanels()">
+                            <mat-icon>home</mat-icon>Home
+                        </button>
                     </mat-list-item>
-    
-                    <ng-container *ngFor="let group of groupedMenuList">
-                        <mat-list-item *ngIf="group.menus && group.menus.length > 0">
-                            <button mat-button [matMenuTriggerFor]="menuGroup">
-                                <mat-icon>{{ getIconForGroup(group.name) }}</mat-icon>{{ group.name }}
-                            </button>
-                            <!-- Tạo một mat-menu cho mỗi nhóm -->
-                            <mat-menu #menuGroup="matMenu">
+
+                    <mat-accordion [multi]="false">
+                        <ng-container *ngFor="let group of groupedMenuList">
+                            <mat-expansion-panel *ngIf="group.menus && group.menus.length > 0" #panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <mat-icon>{{ getIconForGroup(group.name) }}</mat-icon>{{ group.name }}
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
                                 <ng-container *ngFor="let item of group.menus">
-                                    <button mat-menu-item [routerLink]="item.menuCode" *ngIf="item.menuCode">
+                                    <button mat-button [routerLink]="item.menuCode" (click)="closeAllPanels()">
                                         <mat-icon>{{ getIconForItem(item.menuCode) }}</mat-icon>
                                         {{ item.name }}
                                     </button>
-                                    <!-- Hiển thị menu không có điều hướng nếu không có menuCode -->
                                     <div *ngIf="!item.menuCode" class="menu-item-no-link">
                                         <mat-icon>{{ getIconForItem(item.menuCode) }}</mat-icon>
                                         {{ item.name }}
                                     </div>
+                                    <br>
                                 </ng-container>
-                            </mat-menu>
-    
-                        </mat-list-item>
-                    </ng-container>
-    
-    
+                            </mat-expansion-panel>
+                        </ng-container>
+                    </mat-accordion>
                 </mat-nav-list>
-    
             </mat-drawer>
+
             <mat-drawer-content>
-                <div style="text-align: center;min-height: 600px;">
+                <div style="text-align: center; min-height: 600px;">
                     <router-outlet></router-outlet>
                 </div>
             </mat-drawer-content>
-    
         </mat-drawer-container>
-    
-    
     </div>
-    }@else{
-    <div style="text-align: center;min-height: 600px;">
+} @else {
+    <div style="text-align: center; min-height: 600px;">
         <router-outlet></router-outlet>
     </div>
-    }
-    
+}
